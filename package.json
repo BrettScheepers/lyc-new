@@ -1,0 +1,16 @@
+{
+  "name": "love-your-city",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "pnpx": "pnpx",
+    "api": "pnpm --filter api run dev",
+    "web": "pnpm --filter web run dev --host=0.0.0.0",
+    "api:generate": "pnpm run --filter api prisma db pull && pnpm run --filter api prisma generate"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

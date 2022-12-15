@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:13.3-alpine
+    environment:
+      - POSTGRES_PASSWORD=test
+    volumes:
+      - sql_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  api:
+    build: .
+    command: pnpm run api
+    volumes:
+      - .:/usr/local/src
+    env_file: ./packages/api/.env
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
+
+  web:
+    build: .
+    command: pnpm run web
+    volumes:
+      - .:/usr/local/src
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+
+volumes:
+  sql_data:
